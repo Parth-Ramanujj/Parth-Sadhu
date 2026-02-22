@@ -136,22 +136,22 @@ document.addEventListener('DOMContentLoaded', () => {
   if (bgMusic) {
     bgMusic.volume = 0.3; // Set a pleasant default volume
 
-    // Modern browsers block autoplay without interaction. Try immediately first:
-    bgMusic.play().catch(() => {
-      // If blocked, wait for first user interaction to start playing infinitely
-      const startMusic = () => {
-        if (!bgMusic.muted) {
-          bgMusic.play().catch(e => console.log(e));
-        }
-        ['click', 'scroll', 'touchstart', 'keydown'].forEach(evt =>
-          document.removeEventListener(evt, startMusic)
-        );
-      };
+    // Attempt to start music on the very first user interaction
+    const initAudio = () => {
+      // If user hasn't actively muted it, and it's paused, try to play
+      if (bgMusic.paused) {
+        bgMusic.play().catch(e => console.log('Audio logic blocked:', e));
+      }
 
+      // Clean up the listeners so this only runs once
       ['click', 'scroll', 'touchstart', 'keydown'].forEach(evt =>
-        document.addEventListener(evt, startMusic, { once: true })
+        document.removeEventListener(evt, initAudio)
       );
-    });
+    };
+
+    ['click', 'scroll', 'touchstart', 'keydown'].forEach(evt =>
+      document.addEventListener(evt, initAudio)
+    );
 
     if (musicToggle) {
       // Sync UI with actual play state
