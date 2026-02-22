@@ -491,11 +491,11 @@
   <footer>
     <div class="container text-center">
       <div style="margin-bottom: 2rem;">
-        <a href="/personal/Parth_Resume.pdf" download="Parth_Resume.pdf" class="btn btn-primary"
-          style="display: inline-flex; align-items: center; gap: 10px; padding: 12px 30px; border-radius: 50px; text-decoration: none; font-weight: 600; box-shadow: 0 10px 30px rgba(99, 102, 241, 0.4); background: linear-gradient(135deg, var(--primary), var(--tertiary)); border: 1px solid rgba(255,255,255,0.1);">
+        <button class="btn btn-primary download-bio-btn"
+          style="display: inline-flex; align-items: center; gap: 10px; padding: 12px 30px; border-radius: 50px; text-decoration: none; font-weight: 600; box-shadow: 0 10px 30px rgba(99, 102, 241, 0.4); background: linear-gradient(135deg, var(--primary), var(--tertiary)); border: 1px solid rgba(255,255,255,0.1); cursor: pointer; color: white;">
           <span style="font-size: 1.2rem;">📄</span>
           <span>Download Bio-Data</span>
-        </a>
+        </button>
       </div>
       <p>&copy; <span id="year"></span> Parth Sadhu Haresh Bhai. All rights reserved.</p>
       <p class="footer-subtext">Built with Passion &amp; Vanilla JavaScript</p>
@@ -517,11 +517,11 @@
     <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3" type="audio/mpeg">
   </audio>
 
-  <a href="/personal/Parth_Resume.pdf" download="Parth_Resume.pdf" class="btn btn-primary"
-    style="position: fixed; bottom: 85px; right: 20px; z-index: 9999; border-radius: 50px; padding: 12px 24px; display: flex; gap: 8px; align-items: center; box-shadow: 0 4px 15px rgba(0,0,0,0.5); text-decoration: none;">
+  <button class="btn btn-primary download-bio-btn"
+    style="position: fixed; bottom: 85px; right: 20px; z-index: 9999; border-radius: 50px; padding: 12px 24px; display: flex; gap: 8px; align-items: center; box-shadow: 0 4px 15px rgba(0,0,0,0.5); text-decoration: none; cursor: pointer; color: white;">
     <span style="font-size: 1.2rem;">📄</span>
     <span style="font-weight: 600;">Download Bio Data</span>
-  </a>
+  </button>
 
   <button id="musicToggle" class="btn btn-primary"
     style="position: fixed; bottom: 20px; right: 20px; z-index: 9999; border-radius: 50px; padding: 12px 24px; display: flex; gap: 8px; align-items: center; box-shadow: 0 4px 15px rgba(0,0,0,0.5);">
@@ -529,6 +529,7 @@
     <span id="musicText" style="font-weight: 600;">Mute Music</span>
   </button>
 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
   <script type="module" src="/src/main.js"></script>
 </body>
 

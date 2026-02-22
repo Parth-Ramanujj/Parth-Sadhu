@@ -245,7 +245,38 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // Website Bio-Data PDF Downloader
+  const downloadBtns = document.querySelectorAll('.download-bio-btn');
+  downloadBtns.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
 
+      const element = document.body;
+      const opt = {
+        margin: [0, 0, 0, 0],
+        filename: 'Parth_Sadhu_BioData.pdf',
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: {
+          scale: 2,
+          useCORS: true,
+          backgroundColor: '#050508',
+          ignoreElements: (element) => {
+            // Do not include floating buttons and scripts in the final PDF
+            if (element.id === 'musicToggle' || element.classList.contains('download-bio-btn')) {
+              return true;
+            }
+            return false;
+          }
+        },
+        jsPDF: { unit: 'px', format: [element.scrollWidth, element.scrollHeight], orientation: 'portrait' }
+      };
+
+      // Alter UI specifically for print mode before capturing
+      const originalBodyScale = document.body.style.transform;
+
+      html2pdf().set(opt).from(element).save();
+    });
+  });
   // Prevent downloading of images and videos
   document.addEventListener('contextmenu', event => {
     if (event.target.tagName === 'IMG' || event.target.tagName === 'VIDEO') {
