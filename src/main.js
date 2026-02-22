@@ -245,48 +245,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Custom Audio for Videos
-  const highlightVideos = document.querySelectorAll('.highlight-video');
-  highlightVideos.forEach(video => {
-    const audioSrc = video.getAttribute('data-bg-audio');
-    if (audioSrc) {
-      const vidAudio = new Audio(audioSrc);
-      vidAudio.loop = true;
-      vidAudio.volume = 0.6; // Aesthetic video background volume
-
-      video.addEventListener('play', () => {
-        // Lower global background music so it doesn't clash
-        if (bgMusic) bgMusic.volume = 0.05;
-        vidAudio.play().catch(e => console.log('Video custom audio blocked:', e));
-      });
-
-      video.addEventListener('pause', () => {
-        vidAudio.pause();
-        // Restore global music if no other video is playing
-        const isAnyVideoPlaying = Array.from(highlightVideos).some(v => !v.paused && !v.ended);
-        if (!isAnyVideoPlaying && bgMusic) {
-          bgMusic.volume = 0.3;
-        }
-      });
-
-      video.addEventListener('ended', () => {
-        vidAudio.pause();
-        const isAnyVideoPlaying = Array.from(highlightVideos).some(v => !v.paused && !v.ended);
-        if (!isAnyVideoPlaying && bgMusic) {
-          bgMusic.volume = 0.3;
-        }
-      });
-
-      // Completely force-mute original video voice if user tries to unmute
-      video.muted = true;
-      video.addEventListener('volumechange', () => {
-        if (!video.muted || video.volume > 0) {
-          video.muted = true;
-          video.volume = 0;
-        }
-      });
-    }
-  });
 
   // Prevent downloading of images and videos
   document.addEventListener('contextmenu', event => {
