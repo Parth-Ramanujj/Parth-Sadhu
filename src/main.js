@@ -251,101 +251,12 @@ document.addEventListener('DOMContentLoaded', () => {
     btn.addEventListener('click', (e) => {
       e.preventDefault();
 
-      // Creates a pristine, strictly A4-styled virtual element in memory
-      const printableContent = document.createElement('div');
-      printableContent.style.width = '800px';
-      printableContent.style.padding = '60px';
-      printableContent.style.fontFamily = "'Helvetica Neue', Helvetica, Arial, sans-serif";
-      printableContent.style.background = 'white';
-      printableContent.style.color = '#222';
-      printableContent.style.boxSizing = 'border-box';
-      // Append strictly off-screen
-      printableContent.style.position = 'absolute';
-      printableContent.style.left = '-9999px';
-      printableContent.style.top = '-9999px';
-
-      printableContent.innerHTML = `
-        <div style="text-align: center; border-bottom: 2px solid #10b981; padding-bottom: 20px; margin-bottom: 30px;">
-          <h1 style="font-size: 38px; color: #111; margin: 0; font-weight: 800; letter-spacing: 1px;">PARTH SADHU</h1>
-          <h3 style="font-size: 18px; color: #10b981; margin: 10px 0 0 0; font-weight: 600; text-transform: uppercase; letter-spacing: 2px;">Full Stack Developer & AI Engineer</h3>
-          <p style="margin: 15px 0 0 0; color: #555; font-size: 14px;">Rajkot, Gujarat • parth.ramanujj@gmail.com • github.com/Parth-Ramanujj</p>
-        </div>
-
-        <div style="margin-bottom: 30px;">
-          <h2 style="font-size: 18px; color: #111; border-bottom: 1px solid #ddd; padding-bottom: 8px; text-transform: uppercase; letter-spacing: 1px;">Professional Summary</h2>
-          <p style="font-size: 14.5px; line-height: 1.6; color: #444; margin: 10px 0 0 0;">
-            Highly motivated and visionary Full Stack Developer specializing in AI integrations and modern web applications. 
-            Proven ability to architect full-scale platforms from complex React-based dynamic dashboards to intelligent predictive algorithms using Machine Learning. Deeply passionate about writing robust logic, executing clean cloud infrastructure, and deploying flawless digital experiences.
-          </p>
-        </div>
-
-        <div style="margin-bottom: 30px;">
-          <h2 style="font-size: 18px; color: #111; border-bottom: 1px solid #ddd; padding-bottom: 8px; text-transform: uppercase; letter-spacing: 1px;">Technical & Core Skills</h2>
-          <div style="margin-top: 15px;">
-            <p style="margin: 0 0 8px 0; font-size: 14px;"><strong style="color:#111;">Languages & Web:</strong> HTML5, CSS3, JavaScript, TypeScript, React, Vite, Node.js, Express</p>
-            <p style="margin: 0 0 8px 0; font-size: 14px;"><strong style="color:#111;">Database & Cloud:</strong> MongoDB, SQL, Firebase, AWS</p>
-            <p style="margin: 0 0 8px 0; font-size: 14px;"><strong style="color:#111;">AI / ML Engineering:</strong> Python Automation, Predictive Data Models, Computer Vision</p>
-          </div>
-        </div>
-
-        <div style="margin-bottom: 30px;">
-          <h2 style="font-size: 18px; color: #111; border-bottom: 1px solid #ddd; padding-bottom: 8px; text-transform: uppercase; letter-spacing: 1px;">Highlight Projects</h2>
-          
-          <div style="margin-bottom: 15px;">
-            <h4 style="margin: 0; font-size: 16px; color: #222;">PadosiAgent-s (AI Solution)</h4>
-            <p style="margin: 5px 0 0 0; font-size: 14px; color: #444; line-height: 1.5;">Advanced artificial intelligence infrastructure capable of autonomous localized web responses.</p>
-          </div>
-
-          <div style="margin-bottom: 15px;">
-            <h4 style="margin: 0; font-size: 16px; color: #222;">Fleet Flow Logistics Management System</h4>
-            <p style="margin: 5px 0 0 0; font-size: 14px; color: #444; line-height: 1.5;">Comprehensive enterprise-grade fleet administration frontend. Tracks multiple active vehicles simultaneously with interactive mapping architectures.</p>
-          </div>
-
-          <div style="margin-bottom: 15px;">
-            <h4 style="margin: 0; font-size: 16px; color: #222;">apiCrop Machine Learning API</h4>
-            <p style="margin: 5px 0 0 0; font-size: 14px; color: #444; line-height: 1.5;">Smart predictive models utilizing high-level Python analysis libraries to output crucial environmental statistics.</p>
-          </div>
-        </div>
-
-        <div style="margin-bottom: 30px;">
-          <h2 style="font-size: 18px; color: #111; border-bottom: 1px solid #ddd; padding-bottom: 8px; text-transform: uppercase; letter-spacing: 1px;">Education & Leadership</h2>
-          <div style="margin-bottom: 10px;">
-            <h4 style="margin: 0; font-size: 16px; color: #222;">Academic Career</h4>
-            <p style="margin: 5px 0 0 0; font-size: 14px; color: #444;">Continuous dedicated learning toward advanced software infrastructure, algorithms, and applied machine learning logic.</p>
-          </div>
-          <div style="margin-bottom: 10px;">
-            <h4 style="margin: 0; font-size: 16px; color: #222;">NCC - National Cadet Corps</h4>
-            <p style="margin: 5px 0 0 0; font-size: 14px; color: #444;">Active disciplined participant. Strong emphasis on collaborative physical leadership, structural integrity, and dedicated focus.</p>
-          </div>
-        </div>
-        
-        <div style="text-align: center; margin-top: 40px; font-size: 12px; color: #888; border-top: 1px solid #eee; padding-top: 20px;">
-          Dynamically verified & generated via Parth Sadhu's Portfolio.
-        </div>
-      `;
-
-      // Momentarily attach hidden element to document body to ensure true CSS scaling rendering
-      document.body.appendChild(printableContent);
-
-      // Give slightly more standard PDF margins for A4 clean format 
-      const opt = {
-        margin: 10,
-        filename: 'Parth_BioData.pdf',
-        image: { type: 'jpeg', quality: 1.0 },
-        html2canvas: {
-          scale: 3,
-          useCORS: true,
-          backgroundColor: '#FFFFFF'
-        },
-        jsPDF: { unit: 'px', format: [820, printableContent.scrollHeight + 50], orientation: 'portrait' }
-      };
-
-      html2pdf().set(opt).from(printableContent).save().then(() => {
-        // Guarantee clean DOM removal
-        if (document.body.contains(printableContent)) {
-          document.body.removeChild(printableContent);
-        }
-      });
+      const link = document.createElement('a');
+      link.href = '/personal/Parth_Resume.pdf';
+      link.download = 'Parth_Resume.pdf';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
     });
   });
   // Prevent downloading of images and videos
